@@ -1,0 +1,193 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+
+body {
+  background: black;
+  color:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10px;
+    background:aqua;;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.logo{
+    margin-left:30px;
+    font-size: 32px;
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+}
+nav a{
+    font-size: 18px;
+    color:black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+}
+.nav a:hover,
+.nav a.active{
+
+    color:coral;
+}
+
+
+/* Containers */
+.container {
+  margin-top: 300px;
+  margin-bottom: 200px;
+  width: 600px;
+  max-width: 90%;
+  padding: 20px;
+  border-radius: 12px;
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  font-size:65px;
+}
+h2{
+  text-align:center;
+  margin-bottom: 50px;
+  color:white;
+  font-size:40px;
+  
+
+}
+
+p {
+  margin-left: 20px;
+  display: flex;
+  font-size: 17px;
+  line-height: 1.5;
+  color: white;
+}
+.info-box{
+  margin-top: 500px auto;
+  border:3px solid aquamarine;
+  border-radius:3px;
+  box-shadow: 0 0 30px white;
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.start-btn {
+  margin-left:200px;
+  margin-top: 20px;
+  background: rgb(122, 247, 247);
+  color: black;
+  border:3px solid rgb(84, 84, 237);
+  box-shadow: 0 0 20px black;
+  font-weight: 600;
+  width: 150px;
+  font-size: 20px;
+  
+}
+.start-btn:hover {
+  background:rgb(140, 233, 140);
+}
+
+.info-btn {
+  background: #2196F3;
+  color: white;
+}
+.info-btn:hover {
+  background:rgb(195, 228, 144);
+  color: black;
+}
+
+.exit-btn {
+  background:rgb(62, 59, 240);
+  color:white;
+}
+.exit-btn:hover {
+  background: #ed4b4b;
+  color: black;
+}
+.con-btn{
+  background: #2196F3;
+  color:white;
+}
+.con-btn:hover{
+  background: #9fdb9a;
+  color: black;
+}
+/* Options */
+.option {
+  border: 2px solid #333;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 10px 0
+  cursor: pointer;
+  transition: 0.3s;
+}
+.option:hover {
+  background:white;
+  color: black;
+}
+
+.option.correct {
+  background: #9fdb9a;
+  border-color:rgb(45, 198, 45);
+  color: black;
+}
+.option.wrong {
+  background: #f68c8c;
+  border-color: red;
+  color: black;
+}
+.option.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Footer */
+.footer {
+ 
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-weight:600;
+  
+}
+
+.result-box {
+  text-align: center;
+  margin-right:250px;
+}
+.result-box h2 {
+  margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz</title>
+<style>
+    body { 
+        font-family: Arial, sans-serif;
+        margin: 100px;
+        margin-top: 50px;
+        background: black;
+        color:white;
+    }
+    h2 { 
+        color:rgb(119, 239, 239);
+        font-size: 30px;
+        margin-bottom: 50px;
+        
+     }
+    .question { 
+        margin-bottom: 20px; 
+        padding: 10px; 
+       background:rgb(55, 52, 52); 
+        border-radius: 5px;
+    
+    }
+    input[type="radio"] {
+         margin-right: 10px;
+ }
+    button { 
+        padding: 10px 20px;
+        margin-top: 20px; 
+        cursor: pointer; 
+        background:rgb(77, 194, 240);
+        border: 3px solid white;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    button:hover {
+        background:rgb(235, 82, 82);
+        color: white;
+        border: 3px solid black;
+    }
+</style>
+</head>
+<body>
+
+<h2 id="welcome">Welcome to Quiz!</h2>
+<form id="quizForm"></form>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const firstname = params.get("firstname") || "User";
+const course = params.get("course") || "HTML";
+
+document.getElementById("welcome").innerText = 
+    `Welcome ${firstname} ! You selected ${course} course. Answer the questions below !`;
+
+// Question sets
+const quizzes = {
+    "HTML": [
+        {q:"What does HTML stand for?", options:["Hyper Text Markup Language","Hyperlinks and Text Markup Language","Home Tool Markup Language","Hyperlinking Text Mark Language"], answer:"Hyper Text Markup Language"},
+        {q:"Which tag is used for hyperlink?", options:["&lt;link&gt;","&lt;a&gt;","&lt;href&gt;","&lt;url&gt;"], answer:"<a>"},
+        {q:"Line break tag?", options:["&lt;break&gt;","&lt;lb&gt;","&lt;br&gt;","&lt;line&gt;"], answer:"<br>"},
+        {q:"Unique identifier attribute?", options:["class","id","name","key"], answer:"id"},
+        {q:"Tag to create table?", options:["&lt;table&gt;","&lt;tr&gt;","&lt;td&gt;","&lt;tabel&gt;"], answer:"<table>"},
+        {q:"Table row tag?", options:["&lt;td&gt;","&lt;tr&gt;","&lt;th&gt;","&lt;row&gt;"], answer:"<tr>"},
+        {q:"Numbered list tag?", options:["&lt;ul&gt;","&lt;ol&gt;","&lt;li&gt;","&lt;list&gt;"], answer:"<ol>"},
+        {q:"Insert image tag?", options:["&lt;img&gt;","&lt;image&gt;","&lt;src&gt;","&lt;pic&gt;"], answer:"<img>"},
+        {q:"Attribute for image URL?", options:["href","src","link","url"], answer:"src"},
+        {q:"Main heading tag?", options:["&lt;h1&gt;","&lt;heading&gt;","&lt;head&gt;","&lt;main&gt;"], answer:"<h1>"}
+    ],
+
+    "CSS": [
+        {q:"What does CSS stand for?", options:["Cascading Style Sheets","Creative Style System","Computer Styled Sections","Colorful Style Sheets"], answer:"Cascading Style Sheets"},
+        {q:"Which property changes text color?", options:["font-style","color","text-decoration","background-color"], answer:"color"},
+        {q:"How to select element with id 'main'?", options:[".main","main","#main","*main"], answer:"#main"},
+        {q:"Default position value in CSS?", options:["relative","absolute","static","fixed"], answer:"static"},
+        {q:"Which property sets background color?", options:["bgcolor","color","background-color","background"], answer:"background-color"},
+        {q:"Which property sets text size?", options:["font-size","text-size","size","font-style"], answer:"font-size"},
+        {q:"To make text bold?", options:["font-style","font-weight","text-bold","weight"], answer:"font-weight"},
+        {q:"Which is used for flex layout?", options:["display:block","display:flex","flex:display","layout:flex"], answer:"display:flex"},
+        {q:"CSS comment syntax?", options:["** comment","// comment","/* comment */","# comment"], answer:"/* comment */"},
+        {q:"Pseudo-class for hover effect?", options:[":click",":hover",":focus",":active"], answer:":hover"}
+    ],
+
+    "JavaScript": [
+        {q:"Which keyword declares a variable?", options:["var","let","const","All of these"], answer:"All of these"},
+        {q:"Which symbol is used for comments?", options:[  "/*..*/" ,"//","**","##"], answer:"//"},
+        {q:"What is typeof null?", options:["object","null","undefined","number"], answer:"object"},
+        {q:"Which method prints to console?", options:["console.print()","console.log()","log.console()","print.console()"], answer:"console.log()"},
+        {q:"Which operator checks value & type?", options:[ "==" , "===","!=","<="], answer:"==="},
+        {q:"Function keyword in JS?", options:["def","function","func","method"], answer:"function"},
+        {q:"Which loop executes at least once?", options:["for","while","do...while","foreach"], answer:"do...while"},
+        {q:"How to convert string to int?", options:["parseInt()","Number()","Both A and B","toInt()"], answer:"Both A and B"},
+        {q:"What is NaN in JavaScript?", options:["Not a Null","Not a Number","Null and Number","Name as Number"], answer:"Not a Number"},
+        {q:"Which built-in object handles dates?", options:["Calendar","Date","Time","Clock"], answer:"Date"}
+    ]
+};
+
+const selectedQuiz = quizzes[course] || quizzes["HTML"];
+const quizForm = document.getElementById("quizForm");
+
+// Render quiz
+selectedQuiz.forEach((item, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+    let html = `<p>${i+1}. ${item.q}</p>`;
+    item.options.forEach(opt => {
+        html += `<label><input type="radio" name="q${i+1}" value="${opt}"> ${opt}</label><br>`;
+    });
+    div.innerHTML = html;
+    quizForm.appendChild(div);
+});
+
+// Add Submit button
+const submitBtn = document.createElement("button");
+submitBtn.type = "button";
+submitBtn.innerText = "Submit Quiz";
+submitBtn.onclick = submitQuiz;
+quizForm.appendChild(submitBtn);
+
+function submitQuiz() {
+    let score = 0;
+    selectedQuiz.forEach((item,i)=>{
+        const selected = document.querySelector(`input[name="q${i+1}"]:checked`);
+        if(selected && selected.value === item.answer) score++;
+    });
+
+    // Redirect to result page with score, name, course
+    window.location.href = `result.html?firstname=${firstname}&course=${course}&score=${score}&total=${selectedQuiz.length}`;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Result</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+        background: black;
+        color: white;
+        text-align: center;
+    }
+    h2 { 
+        color:white;
+        text-align: center;
+        font-size: 30px;
+        margin-top: 225px;
+    }
+    .score-box {
+        margin: 30px auto;
+        padding: 50px;
+        background: #222;
+        border-radius: 10px;
+        border: 3px solid aquamarine;
+        width: 300px;
+        box-shadow:0 0 30px white ;
+        font-size: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        margin: 20px;
+        cursor: pointer;
+        background: rgb(127, 210, 242);
+        border-radius: 5px;
+        font-size: 16px;
+        border: 3px solid white;
+        border-radius: 6px;
+        font-weight:600;
+        
+    }
+    button:hover {
+        background:rgb(94, 94, 239);
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+<h2>Quiz Results !</h2>
+<div class="score-box">
+    <p id="resultText"></p>
+    <p id="scoreText"></p>
+    <button onclick="tryAgain()">Try Again</button>
+    <button onclick="goHome()">Home</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const firstname = params.get("firstname") || "User";
+const course = params.get("course") || "HTML";
+const score = params.get("score") || 0;
+const total = params.get("total") || 0;
+
+// Show results
+document.getElementById("resultText").innerText = `Well done, ${firstname}!`;
+document.getElementById("scoreText").innerText = `You scored ${score} out of ${total} in ${course}.`;
+
+// Button logic
+function tryAgain() {
+    window.location.href = `quiz.html?firstname=${firstname}&course=${course}`;
+}
+function goHome() {
+    window.location.href = "index.html"; // change if your home page is different
+}
+</script>
+
+</body>
+</html>
